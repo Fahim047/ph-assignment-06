@@ -43,7 +43,7 @@ const displayPets = (pets) => {
 		div.classList = 'p-4 space-y-2 border-2 border-gray-200 rounded-md';
 		div.innerHTML = `
     
-<img src=${image} alt=${breed} />
+<img class="pet-image" src=${image} alt=${breed} />
 <h4 class="font-bold">${pet_name}</h4>
 <div class="space-y-1 text-gray-500 text-sm">
   <div class="flex items-center gap-2">
@@ -80,7 +80,7 @@ const displayPets = (pets) => {
   </div>
 </div>
 <div class="flex justify-between gap-1 border-t pt-4">
-  <button class="btn btn-sm">
+  <button class="btn btn-sm like-btn">
   <img src="./images/icons/like.svg" alt="" /></button>
   <button class="btn btn-sm text-[#0E7A81]">Adopt</button>
   <button class="btn btn-sm text-[#0E7A81]">Details</button>
@@ -88,6 +88,9 @@ const displayPets = (pets) => {
     `;
 
 		petsContainer.appendChild(div);
+
+		const likeBtn = div.querySelector('.like-btn');
+		likeBtn.addEventListener('click', () => addToFavorite(image));
 	});
 };
 
@@ -97,6 +100,14 @@ const loadPetsByCategory = async (category) => {
 	const res = await fetch(url);
 	const data = await res.json();
 	displayPets(data.data);
+};
+const addToFavorite = (imageUrl) => {
+	const favoritePetContainer = document.getElementById(
+		'favorite-pet-container'
+	);
+	const img = document.createElement('img');
+	img.src = imageUrl;
+	favoritePetContainer.appendChild(img);
 };
 
 loadCategories();
