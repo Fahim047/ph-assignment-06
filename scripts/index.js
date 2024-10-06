@@ -13,6 +13,7 @@ const displayCategories = (categories) => {
 		const btn = document.createElement('button');
 		btn.classList = 'btn w-[100px] md:w-[150px]';
 		btn.innerText = item.category;
+		btn.addEventListener('click', () => loadPetsByCategory(item.category));
 
 		categoriesContainer.appendChild(btn);
 	});
@@ -24,13 +25,22 @@ const loadAllPets = async () => {
 	displayPets(data.pets);
 };
 const displayPets = (pets) => {
-	console.log(pets);
 	const petsContainer = document.getElementById('pets-container');
-
+	petsContainer.innerHTML = '';
+	petsContainer.classList = 'grid grid-cols-3 gap-4';
+	if (pets.length === 0) {
+		petsContainer.classList =
+			'flex flex-col justify-center items-center h-[300px]';
+		petsContainer.innerHTML = `
+    <img src="./images/error.webp" alt="" />
+    <h2 class="text-3xl font-extrabold text-gray-500 text-center">No pets found!!!</h2>
+    `;
+		return;
+	}
 	pets.map((item) => {
 		const { pet_name, image, breed, date_of_birth, price, gender } = item;
 		const div = document.createElement('div');
-		div.classList = 'p-4 space-y-2 border border-gray-200 rounded-md';
+		div.classList = 'p-4 space-y-2 border-2 border-gray-200 rounded-md';
 		div.innerHTML = `
     
 <img src=${image} alt=${breed} />
@@ -69,15 +79,24 @@ const displayPets = (pets) => {
     <span>Price : ${price ? price + '$' : 'N/A'}</span>
   </div>
 </div>
-<div class="flex justify-between gap-1 border-t py-2">
-  <button class="btn btn-sm">👍</button>
-  <button class="btn btn-sm">Adopt</button>
-  <button class="btn btn-sm">Details</button>
+<div class="flex justify-between gap-1 border-t pt-4">
+  <button class="btn btn-sm">
+  <img src="./images/icons/like.svg" alt="" /></button>
+  <button class="btn btn-sm text-[#0E7A81]">Adopt</button>
+  <button class="btn btn-sm text-[#0E7A81]">Details</button>
 </div>
     `;
 
 		petsContainer.appendChild(div);
 	});
+};
+
+const loadPetsByCategory = async (category) => {
+	const url = ` https://openapi.programming-hero.com/api/peddy/category/${category}`;
+
+	const res = await fetch(url);
+	const data = await res.json();
+	displayPets(data.data);
 };
 
 loadCategories();
