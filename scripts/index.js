@@ -114,18 +114,27 @@ const addToFavorite = (imageUrl) => {
 	favoritePetContainer.appendChild(img);
 };
 const showDetails = (item) => {
-	const { pet_name, image, breed, date_of_birth, price, gender } = item;
+	const {
+		pet_name,
+		image,
+		breed,
+		date_of_birth,
+		price,
+		gender,
+		pet_details,
+		vaccinated_status,
+	} = item;
 	const detailsModal = document.getElementById('details-modal');
 	const modalContent = detailsModal.querySelector('.modal-content');
 	modalContent.innerHTML = `
-<img class="pet-image w-full rounded-md" src=${image} alt=${breed} />
-<h4 class="font-extrabold text-2xl">${pet_name}</h4>
+<img class="pet-image w-full rounded-md" src=${image} alt="not available" />
+<h4 class="font-extrabold text-2xl">${pet_name || 'N/A'}</h4>
 <div class="space-y-1 grid grid-cols-2 gap-2 text-gray-500 text-sm">
   <div class="flex items-center gap-2">
     <img
       class="size-4"
       src="./images/icons/breed.svg"
-      alt=""
+      alt="breed"
     />
     <span>Breed: ${breed || 'N/A'}</span>
   </div>
@@ -133,7 +142,7 @@ const showDetails = (item) => {
     <img
       class="size-4"
       src="./images/icons/calender.svg"
-      alt=""
+      alt="calender"
     />
     <span>Birth: ${date_of_birth || 'N/A'}</span>
   </div>
@@ -141,7 +150,7 @@ const showDetails = (item) => {
     <img
       class="size-4"
       src="./images/icons/gender.svg"
-      alt=""
+      alt="gender"
     />
     <span>Gender: ${gender || 'N/A'}</span>
   </div>
@@ -149,14 +158,22 @@ const showDetails = (item) => {
     <img
       class="size-4"
       src="./images/icons/dollar.svg"
-      alt=""
+      alt="money"
     />
-    <span>Price : ${price ? price + '$' : 'N/A'}</span>
+    <span>Price: ${price ? price + '$' : 'N/A'}</span>
+  </div>
+  <div class="flex items-center gap-2">
+    <img
+      class="size-4"
+      src="./images/icons/vaccine.svg"
+      alt="vaccine"
+    />
+    <span>Vaccinated status: ${vaccinated_status || 'N/A'}</span>
   </div>
 </div>
 <div class="border-t py-4 space-y-2">
 	<h4 class="font-bold">Details Information</h4>
-	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+	<p>${pet_details}</p>
 </div>
 	`;
 	detailsModal.showModal();
