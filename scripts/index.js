@@ -43,7 +43,7 @@ const loadAllPets = async () => {
 const displayPets = (pets) => {
 	const petsContainer = document.getElementById('pets-container');
 	petsContainer.innerHTML = '';
-	petsContainer.classList = 'grid sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-4';
+	petsContainer.classList = 'grid sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4';
 	if (pets.length === 0) {
 		petsContainer.classList =
 			'flex flex-col justify-center items-center h-[300px]';
@@ -92,7 +92,9 @@ const displayPets = (pets) => {
       src="./images/icons/dollar.svg"
       alt=""
     />
-    <span>Price : ${price ? price + '$' : 'N/A'}</span>
+    <span>Price: <span class="pet-price">${price || 'N/A'}</span>${
+			price ? '$' : ''
+		}</span>
   </div>
 </div>
 <div class="flex justify-between gap-1 border-t pt-4">
@@ -221,6 +223,29 @@ const adoptPet = () => {
 	event.target.innerText = 'Adopted';
 	event.target.disabled = true;
 };
+
+const sortByPrice = () => {
+	console.log('clicked');
+	const petsContainer = document.getElementById('pets-container');
+	const petCards = Array.from(petsContainer.childNodes);
+	const sortedPetCards = petCards.sort((a, b) => {
+		const priceA = Number(a.querySelector('.pet-price').innerText);
+		const priceB = Number(b.querySelector('.pet-price').innerText);
+		// console.log(priceA, priceB);
+
+		if (isNaN(priceA)) return 1;
+		if (isNaN(priceB)) return -1;
+
+		return priceB - priceA;
+	});
+	petsContainer.innerHTML = '';
+	sortedPetCards.forEach((card) => {
+		petsContainer.appendChild(card);
+	});
+};
+
+const sortBtn = document.getElementById('sort-btn');
+sortBtn.addEventListener('click', () => sortByPrice());
 
 loadCategories();
 loadAllPets();
