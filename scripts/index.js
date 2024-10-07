@@ -43,7 +43,7 @@ const loadAllPets = async () => {
 const displayPets = (pets) => {
 	const petsContainer = document.getElementById('pets-container');
 	petsContainer.innerHTML = '';
-	petsContainer.classList = 'grid grid-cols-3 gap-4';
+	petsContainer.classList = 'grid sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-4';
 	if (pets.length === 0) {
 		petsContainer.classList =
 			'flex flex-col justify-center items-center h-[300px]';
