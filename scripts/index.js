@@ -165,9 +165,11 @@ const adoptPet = () => {
 	const adoptModal = document.getElementById('adopt-modal');
 	const modalContent = adoptModal.querySelector('.modal-content');
 	modalContent.innerHTML = `
-		<h2 class="text-3xl">Congratulations!</h2>
-		<h3 id="counter" class="text-2xl">3</h3>
-		<p>You have successfully adopted the pet.</p>
+		<div class="text-center space-y-4">
+      <h2 class="text-3xl font-bold text-green-600">🎉 Congratulations!</h2>
+      <h3 id="counter" class="text-4xl font-extrabold text-blue-500 mt-4">3</h3>
+      <p class="text-lg text-gray-700">You have successfully adopted the pet.</p>
+    </div>
 	`;
 	adoptModal.showModal();
 	const timer = setInterval(() => {
@@ -180,6 +182,7 @@ const adoptPet = () => {
 			adoptModal.close();
 		}
 	}, 1000);
+	event.target.innerText = 'Adopted';
 	event.target.disabled = true;
 };
 
