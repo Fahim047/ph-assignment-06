@@ -97,7 +97,7 @@ const displayPets = (pets) => {
 </div>
 <div class="flex justify-between gap-1 border-t pt-4">
   <button class="btn btn-sm like-btn">
-  <img src="./images/icons/like.svg" alt="" /></button>
+  <img src="./images/icons/like.svg" alt="like" /></button>
   <button class="adopt-btn btn btn-sm text-[#0E7A81]">Adopt</button>
   <button class="details-btn btn btn-sm text-[#0E7A81]">Details</button>
 </div>
