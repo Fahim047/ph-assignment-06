@@ -1,5 +1,14 @@
 console.log('script is running...');
-
+const handleActiveBtn = (clickedBtn, container) => {
+	console.log('from handleActive');
+	const allBtns = container.querySelectorAll('button');
+	console.log(allBtns);
+	allBtns.forEach((btn) => {
+		btn.classList.remove('active');
+	});
+	console.log(clickedBtn);
+	clickedBtn.classList.add('active');
+};
 const loadCategories = async () => {
 	const url = 'https://openapi.programming-hero.com/api/peddy/categories';
 	const res = await fetch(url);
@@ -11,9 +20,16 @@ const displayCategories = (categories) => {
 
 	categories.map((item) => {
 		const btn = document.createElement('button');
-		btn.classList = 'btn w-[100px] md:w-[150px]';
-		btn.innerText = item.category;
-		btn.addEventListener('click', () => loadPetsByCategory(item.category));
+		btn.classList =
+			'border bg-transparent h-[80px] hover:bg-[#0e798125] duration-300 flex items-center justify-center gap-2 rounded-md';
+		btn.innerHTML = `
+			<img class="size-10 object-fit" src="./images/icons/${item.category}.svg" alt="${item.category}" />
+			<span class="text-lg font-bold">${item.category}</span>
+		`;
+		btn.addEventListener('click', () => {
+			handleActiveBtn(btn, categoriesContainer);
+			loadPetsByCategory(item.category);
+		});
 
 		categoriesContainer.appendChild(btn);
 	});
@@ -43,7 +59,7 @@ const displayPets = (pets) => {
 		div.classList = 'p-4 space-y-2 border-2 border-gray-200 rounded-md';
 		div.innerHTML = `
     
-<img class="pet-image" src=${image} alt=${breed} />
+<img class="pet-image rounded-md" src=${image} alt=${breed} />
 <h4 class="font-bold">${pet_name}</h4>
 <div class="space-y-1 text-gray-500 text-sm">
   <div class="flex items-center gap-2">
@@ -109,8 +125,11 @@ const addToFavorite = (imageUrl) => {
 	const favoritePetContainer = document.getElementById(
 		'favorite-pet-container'
 	);
+
 	const img = document.createElement('img');
 	img.src = imageUrl;
+	img.alt = 'pet';
+	img.classList = 'rounded-md';
 	favoritePetContainer.appendChild(img);
 };
 const showDetails = (item) => {
@@ -195,8 +214,8 @@ const adoptPet = () => {
 
 		if (counter.innerText === '0') {
 			clearInterval(timer);
-			counter.innerText = '1';
 			adoptModal.close();
+			counter.innerText = '1';
 		}
 	}, 1000);
 	event.target.innerText = 'Adopted';
