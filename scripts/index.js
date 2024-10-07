@@ -1,12 +1,9 @@
 console.log('script is running...');
 const handleActiveBtn = (clickedBtn, container) => {
-	console.log('from handleActive');
 	const allBtns = container.querySelectorAll('button');
-	console.log(allBtns);
 	allBtns.forEach((btn) => {
 		btn.classList.remove('active');
 	});
-	console.log(clickedBtn);
 	clickedBtn.classList.add('active');
 };
 const loadCategories = async () => {
@@ -225,13 +222,11 @@ const adoptPet = () => {
 };
 
 const sortByPrice = () => {
-	console.log('clicked');
 	const petsContainer = document.getElementById('pets-container');
 	const petCards = Array.from(petsContainer.childNodes);
 	const sortedPetCards = petCards.sort((a, b) => {
 		const priceA = Number(a.querySelector('.pet-price').innerText);
 		const priceB = Number(b.querySelector('.pet-price').innerText);
-		// console.log(priceA, priceB);
 
 		if (isNaN(priceA)) return 1;
 		if (isNaN(priceB)) return -1;
