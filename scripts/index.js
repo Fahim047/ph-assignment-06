@@ -1,11 +1,5 @@
 console.log('script is running...');
-const handleActiveBtn = (clickedBtn, container) => {
-	const allBtns = container.querySelectorAll('button');
-	allBtns.forEach((btn) => {
-		btn.classList.remove('active');
-	});
-	clickedBtn.classList.add('active');
-};
+
 const loadCategories = async () => {
 	const url = 'https://openapi.programming-hero.com/api/peddy/categories';
 	const res = await fetch(url);
@@ -18,7 +12,7 @@ const displayCategories = (categories) => {
 	categories.map((item) => {
 		const btn = document.createElement('button');
 		btn.classList =
-			'border bg-transparent h-[80px] hover:bg-[#0e798125] duration-300 flex items-center justify-center gap-2 rounded-md';
+			'btn border bg-transparent max-w-[200px] h-[80px] hover:bg-[#0e798125] duration-300 flex items-center justify-center gap-2 rounded-md';
 		btn.innerHTML = `
 			<img class="size-10 object-fit" src="./images/icons/${item.category}.svg" alt="${item.category}" />
 			<span class="text-lg font-bold">${item.category}</span>
@@ -119,6 +113,17 @@ const loadPetsByCategory = async (category) => {
 	const res = await fetch(url);
 	const data = await res.json();
 	displayPets(data.data);
+};
+const handleActiveBtn = (clickedBtn, container) => {
+	const allBtns = container.querySelectorAll('button');
+	allBtns.forEach((btn) => {
+		btn.classList.remove('bg-[#0e798125]', 'border-[#0e7981]', '!rounded-full');
+	});
+	clickedBtn.classList.add(
+		'bg-[#0e798125]',
+		'border-[#0e7981]',
+		'!rounded-full'
+	);
 };
 const addToFavorite = (imageUrl) => {
 	const favoritePetContainer = document.getElementById(
