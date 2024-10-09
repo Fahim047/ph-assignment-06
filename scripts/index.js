@@ -26,10 +26,15 @@ const displayCategories = (categories) => {
 	});
 };
 const loadAllPets = async () => {
+	const spinner = document.getElementById('spinner');
+	spinner.classList.remove('hidden');
 	const url = 'https://openapi.programming-hero.com/api/peddy/pets';
-	const res = await fetch(url);
-	const data = await res.json();
-	displayPets(data.pets);
+	setTimeout(async () => {
+		const res = await fetch(url);
+		const data = await res.json();
+		spinner.classList.add('hidden');
+		displayPets(data.pets);
+	}, 2000);
 };
 const displayPets = (pets) => {
 	const petsContainer = document.getElementById('pets-container');
@@ -108,11 +113,18 @@ const displayPets = (pets) => {
 };
 
 const loadPetsByCategory = async (category) => {
+	const petsContainer = document.getElementById('pets-container');
+	const spinner = document.getElementById('spinner');
+	petsContainer.innerHTML = '';
+	spinner.classList.remove('hidden');
 	const url = ` https://openapi.programming-hero.com/api/peddy/category/${category}`;
 
-	const res = await fetch(url);
-	const data = await res.json();
-	displayPets(data.data);
+	setTimeout(async () => {
+		const res = await fetch(url);
+		const data = await res.json();
+		spinner.classList.add('hidden');
+		displayPets(data.data);
+	}, 2000);
 };
 const handleActiveBtn = (clickedBtn, container) => {
 	const allBtns = container.querySelectorAll('button');

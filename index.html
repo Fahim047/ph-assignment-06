@@ -134,7 +134,7 @@
 							Sort by price
 						</button>
 					</div>
-					<div class="grid grid-cols-12 gap-2 sm:gap-4">
+					<div class="relative grid grid-cols-12 gap-2 sm:gap-4">
 						<div class="col-span-8 sm:col-span-9">
 							<div id="pets-container"></div>
 						</div>
@@ -143,6 +143,12 @@
 								id="favorite-pet-container"
 								class="p-2 grid md:grid-cols-2 gap-2 md:gap-4 border-2 rounded-md min-h-[85px] sm:min-h-[105px] text-center"
 							></div>
+						</div>
+						<div id="spinner" class="hidden">
+							<span class="loading loading-dots loading-xs"></span>
+							<span class="loading loading-dots loading-sm"></span>
+							<span class="loading loading-dots loading-md"></span>
+							<span class="loading loading-dots loading-lg"></span>
 						</div>
 					</div>
 				</div>
